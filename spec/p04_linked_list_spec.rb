@@ -70,8 +70,8 @@ describe LinkedList do
     it "reassigns pointers when links are removed" do
       list.remove(:second)
 
-      expect(list.first.next.key).to be(:third)
-      expect(list.last.prev.key).to be(:first)
+      expect(list.first.prev.key).to be(:third)
+      expect(list.last.next.key).to be(:first)
     end
   end
 
