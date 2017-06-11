@@ -16,7 +16,8 @@ class HashMap
 
   def set(key, val)
     @count += 1 unless include?(key)
-    bucket(key).append(key,val)
+    bucket(key).append(key, val)
+    resize! if @count == num_buckets
 
   end
 
@@ -55,10 +56,14 @@ class HashMap
   end
 
   def resize!
+    all_lists = {}
+    each { |k, v| all_lists[k] = v }
+    initialize(num_buckets * 2)
+    all_lists.each { |k, v| set(k, v)  }
   end
 
   def bucket(key)
-    @store[key.hash % num_buckets]
     # optional but useful; return the bucket corresponding to `key`
+    @store[key.hash % num_buckets]
   end
 end
